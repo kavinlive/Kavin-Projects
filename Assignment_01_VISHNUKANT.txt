@@ -1,0 +1,231 @@
+/*
+	NAME: VISHNUKANT PRAJAPATI
+	CLASS : TY CS SEM 6 DIV A
+	SUB: JAVA 
+	ASSIGNMENT 01
+*/
+
+Q-1 Write a java applet form to display vowels, consonants, black space in the
+inputting string.
+
+package simpleappletprograms;
+
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.*;
+
+public class InputStringManipulate extends Applet implements ActionListener{
+    
+    int i;
+    int count;
+    String Text1 = "";
+    String Text2 = "";
+    String Text3= "";
+    Label L = new Label("Enter Text : ");
+    TextField T1 = new TextField(25);
+    Button Btn = new Button("Click Here");
+    Font font1 = new Font("SansSerif", Font.ROMAN_BASELINE, 24);
+    public void init() {
+        T1.setFont(font1);
+        Btn.setFont(font1);
+        L.setFont(font1);
+        add(L);
+        T1.setForeground(Color.blue);
+        add(T1);
+        add(Btn);
+        Btn.addActionListener(this);
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource()==Btn)
+        {
+            Text1="";
+            Text2="";
+            count=0;
+            repaint();
+            for(i=0; i<T1.getText().length(); i++)
+            {
+                if (T1.getText().charAt(i) == 'a' || T1.getText().charAt(i) == 'e' || T1.getText().charAt(i) == 'i'
+                    || T1.getText().charAt(i) == 'o' || T1.getText().charAt(i) == 'u')
+                {
+                    Text1+=T1.getText().charAt(i);
+                }
+            }
+            for(i=0; i<T1.getText().length(); i++)
+            {
+                if (T1.getText().charAt(i) != 'a' && T1.getText().charAt(i) != 'e' && T1.getText().charAt(i) != 'i'
+                    && T1.getText().charAt(i) != 'o' && T1.getText().charAt(i) != 'u')
+                {
+                    Text2+=T1.getText().charAt(i);
+                }
+            }
+            for(i=0; i<T1.getText().length(); i++)
+            {
+                if (T1.getText().charAt(i)==' ')
+                {
+                   count++;
+                }
+            }
+        }
+    }
+    
+    public void paint(Graphics g)
+    {
+        g.drawString("Vowels : "+Text1, 40, 200);
+        g.drawString("Consonants : "+Text2,40,220);
+        g.drawString("Blank Spaces " +count, 40, 240);
+    }
+}
+
+2. Write a java applet form which has two text field, on click of button
+perform the following. a) Reverse both the strings and concatenate it. b)
+Display characters from the concatenated string.
+
+package simpleappletprograms;
+
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ReverceConcanteString extends Applet implements ActionListener{
+
+    TextField TF1 = new TextField(25);
+    TextField TF2 = new TextField(25);
+    String St="Sachin";
+    int i;
+    Button Btn = new Button("Click Here to Perform Task");
+    public void init() {
+        add(TF1);
+        add(TF2);
+        add(Btn);
+        Btn.addActionListener(this);
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource()==Btn)
+        {
+            St = reverseString(TF1.getText().toString())+reverseString(TF2.getText().toString());
+        }
+        repaint();
+    }
+    
+    public void paint(Graphics g)
+    {
+        g.drawString("Reversed with concated string : "+St, 40, 200);
+    }
+    public String reverseString(String str){  
+        char ch[]=str.toCharArray();  
+        String rev="";  
+        for(int i=ch.length-1;i>=0;i--){  
+            rev+=ch[i];  
+        }  
+        return rev;  
+    }  
+}
+
+
+Q-3 Write a java applet form to Check whether if a given String is Palindrome.
+
+package simpleappletprograms;
+
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.*;
+
+public class PalindromeCheck extends Applet implements ActionListener{
+
+    TextField TF1 = new TextField(25);
+    String St="";
+    int i,j;
+    Boolean IsPalindrome;
+    Button Btn = new Button("Click Here to Perform Task");
+    public void init() {
+        add(TF1);
+        add(Btn);
+        Btn.addActionListener(this);
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+        j=0;i=0;
+        if(e.getSource()==Btn)
+        {
+            i=0; j=TF1.getText().length()-1;
+            while(i<j)
+            {
+                if(TF1.getText().charAt(i)!=TF1.getText().charAt(j))
+                {
+                    St = "This is not Palindrome Text";
+                }
+                else
+                {
+                   St = "This is Palindrome Text";  
+                }
+                i++;
+                j--;
+            }
+        }
+        repaint();
+    }
+    public void paint(Graphics g)
+    {
+        g.drawString(St, 40, 200);
+    }
+}
+
+Q-4 Write a java applet program which has three radio buttons, on click of any
+radio button perform the following:
+
+a) 1st radiobutton it will draw triangle,
+b)2nd radiobutton it will draw rectangle
+c)3rd radiobutton it will draw oval shape.
+
+package simpleappletprograms;
+
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.*;
+
+public class RadioButtonActionDifferentTasks extends Applet implements ItemListener{
+
+    Label L1 = new Label("Check RadioButton to perform different tasks.");
+    CheckboxGroup g = new CheckboxGroup();
+    Checkbox tr = new Checkbox("Triangle",g,false);
+    Checkbox rc = new Checkbox("Ractangle",g,false);
+    Checkbox os = new Checkbox("Oval Shap",g,false);
+    Font font1 = new Font("SansSerif", Font.PLAIN, 24);
+    String St = " ";
+    public void init() {
+        L1.setFont(font1);
+        tr.setFont(font1);
+        rc.setFont(font1);
+        os.setFont(font1);
+        add(L1);
+        add(tr);
+        add(rc);
+        add(os);
+        tr.addItemListener(this);
+        rc.addItemListener(this);
+        os.addItemListener(this);
+    }
+    public void itemStateChanged(ItemEvent ie)
+    {
+        repaint();
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+          if(e.getSource()==tr)
+          {
+              St = "Sachin Kumar Prajapati";
+          }
+    }
+    public void point(Graphics g)
+    {
+        Color color;
+        color = Color.BLACK;
+        g.setColor(color);
+        g.drawOval(50, 50, 52, 52);
+        g.drawOval(50, 103, 52, 52);
+        g.drawOval(50, 156, 52, 52);
+        g.drawString("sanfe",20,45);
+    }
+}

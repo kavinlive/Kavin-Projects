@@ -1,0 +1,159 @@
+Name : Vishnukant Prajapati
+Class : TY CS SEM 6 Div A
+Sub : Mobile Application Developments
+Assignment : 5
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="List View"
+            android:layout_margin="12sp"/>
+
+        <EditText
+            android:id="@+id/TextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12sp"
+            android:hint="Enter some text"
+            android:textSize="20sp" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/Add"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add" />
+
+        <Button
+            android:id="@+id/Update"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update" />
+
+        <Button
+            android:id="@+id/Delete"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/List"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+package com.kavinlive.listviewcrud;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+    EditText E1;
+    Button B1,B2,B3;
+    ListView L1;
+    int Index;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        E1 = (EditText) findViewById(R.id.TextName);
+        B1 = (Button) findViewById(R.id.Add);
+        B2 = (Button) findViewById(R.id.Update);
+        B3 = (Button) findViewById(R.id.Delete);
+        L1 = (ListView) findViewById(R.id.List);
+
+        ArrayList Mobile = new ArrayList();
+        ArrayAdapter AD = new ArrayAdapter(this, android.R.layout.simple_list_item_1,Mobile);
+        L1.setAdapter(AD);
+        AD.add("Realme 9 Pro");
+        AD.add("Realme 10 pro");
+
+        L1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String SelectItem = Mobile.get(i).toString();
+                Toast.makeText(MainActivity.this, "The item you have selected is :"+SelectItem, Toast.LENGTH_SHORT).show();
+                Index = i;
+                String EditOldValue = Mobile.get(Index).toString();
+                E1.setText(EditOldValue);
+                AD.notifyDataSetChanged();
+            }
+        });
+        B1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String AddValue = E1.getText().toString();
+                Mobile.add(AddValue);
+                Toast.makeText(MainActivity.this, "You added new value : "+AddValue, Toast.LENGTH_SHORT).show();
+                AD.notifyDataSetChanged();
+                E1.setText("");
+            }
+        });
+        B2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ValueUpdate = E1.getText().toString();
+                Mobile.set(Index,ValueUpdate);
+                Toast.makeText(MainActivity.this, "Value has been updated to : "+ValueUpdate, Toast.LENGTH_SHORT).show();
+                AD.notifyDataSetChanged();
+            }
+        });
+        B3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Mobile.remove(Index);
+                AD.notifyDataSetChanged();
+            }
+        });
+    }
+}

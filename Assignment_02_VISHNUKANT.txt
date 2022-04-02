@@ -1,0 +1,186 @@
+/*
+	NAME: VISHNUKANT PRAJAPATI
+	CLASS : TY CS SEM 6 DIV A
+	SUB: JAVA 
+	ASSIGNMENT 02
+*/
+
+1. Write a java applet program which has 3 buttons, on click
+it generates different graphical shapes. Take a list box
+which displays different colours. On selection of the colour,
+the object should be filled by that colour.
+
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Assignment_02_Vkp extends Applet implements ActionListener{
+
+    Button b1,b2,b3;
+    List l1;
+    public void init() {
+        b1=new Button("Triangle");
+        b2=new Button("Rectangle");
+        b3=new Button("Oval");
+        l1=new List(3);
+        l1.add("Green");
+        l1.add("Red");
+        l1.add("Blue");
+        add(b1);
+        add(b2);
+        add(b3);
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        b3.addActionListener(this);
+        add(l1);
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        Graphics g=getGraphics();
+        
+        if(e.getSource()==b3)
+        {
+            if(l1.getSelectedIndex()==0)
+            {
+                g.setColor(Color.green);
+                g.fillOval(200, 50, 200, 50);
+            }
+            if(l1.getSelectedIndex()==1)
+            {
+                g.setColor(Color.red);
+                g.fillOval(200, 50, 200, 50);
+            }
+            if(l1.getSelectedIndex()==2)
+            {
+                g.setColor(Color.blue);
+                g.fillOval(200, 50, 200, 50);
+            }
+        }
+        else if(e.getSource()==b2)
+        {
+            if(l1.getSelectedIndex()==0)
+            {
+                g.setColor(Color.green);
+                g.fillRect(400, 150, 400, 150);
+            }
+            if(l1.getSelectedIndex()==1)
+            {
+                g.setColor(Color.red);
+                g.fillRect(400, 150, 400, 150);
+            }
+            if(l1.getSelectedIndex()==2)
+            {
+                g.setColor(Color.blue);
+                 g.fillRect(400, 150, 400, 150);
+            }
+        }
+        
+        else if(e.getSource()==b1)
+        {
+            int x[]={110,180,30,110};
+            int y[]={30,100,100,30};
+            
+            if(l1.getSelectedIndex()==0)
+            {
+                g.setColor(Color.green);
+                g.fillPolygon(x,y,4);
+            }
+            if(l1.getSelectedIndex()==1)
+            {
+                g.setColor(Color.red);
+                g.fillPolygon(x,y,4);
+            }
+            if(l1.getSelectedIndex()==2)
+            {
+                g.setColor(Color.blue);
+                g.fillPolygon(x,y,4);
+            }
+        }
+    }
+}
+
+
+2. Write a java applet program which perform STACK
+operation (push and pop ) by clicking on buttons(push and
+pop) displaying stack elements in LISTBOX .
+
+package javaapplication;
+
+import java.applet.Applet;
+import java.util.Stack;
+import java.awt.*;
+import java.awt.event.*;
+
+public class StackApplet extends Applet implements ActionListener{
+
+    Stack s;
+    List l1;
+    TextField t1;
+    Button push,pop;
+    public void init() {
+        s=new Stack();
+        t1=new TextField(15);
+        push=new Button("PUSH");
+        pop=new Button("POP");
+        add(t1);
+        add(push);
+        add(pop);
+        push.addActionListener(this);
+        pop.addActionListener(this);
+        l1=new List();
+        add(l1);
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+        Graphics g=getGraphics();
+        if(e.getSource()==push)
+        {
+            l1.add(s.push(t1.getText())+"",0);
+        }
+        else if(e.getSource()==pop)
+        {
+            l1.remove(s.pop()+"");
+        }
+    }
+}
+
+3. Write a java applet program which perform QUEUE
+operation (insert and delete) by clicking on buttons(Insert
+and Delete) displaying queue elements in LISTBOX
+
+package javaapplication;
+
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Queue extends Applet implements ActionListener{
+    List l1;
+    Button Insert,Delete;
+    TextField Text;
+    public void init() {
+        Text = new TextField(25);
+        Insert = new Button("Insert");
+        Delete = new Button("Delete");
+        l1 = new List();
+        add(Text);
+        add(Insert);
+        add(Delete);
+        add(l1);
+        Insert.addActionListener(this);
+        Delete.addActionListener(this);
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+       if(e.getSource()==Insert)
+       {
+           l1.add(Text.getText());
+       }
+       else if(e.getSource()==Delete)
+       {  
+           l1.remove(l1.getItem(0));
+       }
+    }
+}
